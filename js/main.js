@@ -16,7 +16,7 @@
         game.load.image('bullet', 'assets/bullet.png');
 
         game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-        initEnemySprites(game);
+        preloadEnemySprites(game);
     }
 
     // TODO: class for global game with one instance named 'world', which holds all data
@@ -69,22 +69,8 @@
         weapon.trackSprite(player, 0, 0);
 
 
-        // draw player movement circle once
-        background_rendering.lineStyle(10, 0xc0c0c0, 0.15);
-        background_rendering.drawCircle(midX, midY, 2 * RADIUS);
 
-
-        var boxPadding = 15;
-        var boxWidth = 150;
-        var boxHeight = 30;
-        var boxSmoothing = 10;
-
-        background_rendering.lineStyle(0, 0, 0);
-        background_rendering.beginFill(0xc0c0c0, 0.15);
-        background_rendering.drawRoundedRect(boxPadding, boxPadding, boxWidth, boxHeight, boxSmoothing);
-        background_rendering.drawRoundedRect(X - boxWidth - boxPadding, boxPadding, boxWidth, boxHeight, boxSmoothing);
-        background_rendering.drawRoundedRect(boxPadding, Y - boxHeight - boxPadding, boxWidth, boxHeight, boxSmoothing);
-        background_rendering.drawRoundedRect(X - boxWidth - boxPadding, Y - boxHeight - boxPadding, boxWidth, boxHeight, boxSmoothing)
+        createHUD(background_rendering);
     }
 
     function update() {
@@ -113,6 +99,8 @@
 
 
         // console.log(pos)
+
+        updateHUD(background_rendering);
 
 
         // TODO: randomly move, rotate and let the generated enemies shoot

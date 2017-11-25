@@ -1,5 +1,5 @@
 
-function initEnemySprites(game) {
+function preloadEnemySprites(game) {
     game.load.spritesheet('enemy1', 'assets/enemy1.png', 32, 32);
     game.load.spritesheet('enemy2', 'assets/enemy2.png', 48, 32, 2);
     game.load.spritesheet('enemy3', 'assets/enemy3.png', 48, 32, 2);
