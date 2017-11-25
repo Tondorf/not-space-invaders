@@ -1,12 +1,5 @@
 (function () {
 
-    // Globals
-    const X = 1200;
-    const Y = 800;
-    const midX = X / 2;
-    const midY = Y / 2;
-    const RADIUS = Y / 2 - 100;
-
     // Game
     var game = new Phaser.Game(X, Y, Phaser.CANVAS, 'container', {preload: preload, create: create, update: update});
 
@@ -21,25 +14,27 @@
 
     // TODO: class for global game with one instance named 'world', which holds all data
 
-    var cursors;
-    var fireButton;
-    var background_rendering;
-    var foreground_rendering;
+    var world = {
+        cursors: null,
+        fireButtons: null,
+        background_rendering: null,
+        foreground_rendering: null,
 
-    var player;
-    var enemies;
-    var weapon;
+        player: null,
+        enemies: null,
+        weapon: null,
 
-    var pos = 0;
+        pos: 0
+    };
 
 
     function create() {
         cursors = game.input.keyboard.createCursorKeys();
-        fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+        world.fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 
 
-        background_rendering = game.add.graphics(0, 0);
-        foreground_rendering = game.add.graphics(0, 0);
+        world.background_rendering = game.add.graphics(0, 0);
+        world.foreground_rendering = game.add.graphics(0, 0);
 
         player = game.add.sprite(0, 0, 'player');
         player.scale.setTo(0.5);
@@ -49,62 +44,62 @@
 
 
         // TODO: generate enemies (not directly here, write and call a function for that) so that they reside in an inner circular shape
-        enemies = spawnEnemies(game);
+        world.enemies = spawnEnemies(game);
 
 
         //  Creates 30 bullets, using the 'bullet' graphic
-        weapon = game.add.weapon(30, 'bullet');
-        weapon.bulletAngleOffset = 90;
+        world.weapon = game.add.weapon(30, 'bullet');
+        world.weapon.bulletAngleOffset = 90;
 
         //  The bullet will be automatically killed when it leaves the world bounds
-        weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+        world.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
 
         //  Because our bullet is drawn facing up, we need to offset its rotation:
 
 
         //  The speed at which the bullet is fired
-        weapon.bulletSpeed = 400;
-        weapon.fireRate = 180;
+        world.weapon.bulletSpeed = 400;
+        world.weapon.fireRate = 180;
         // weapon.bulletSpeedVariance = 200;
-        weapon.trackSprite(player, 0, 0);
+        world.weapon.trackSprite(player, 0, 0);
 
 
 
-        createHUD(background_rendering);
+        createHUD(game, world);
     }
 
     function update() {
         // TODO: draw dynamic parts of HUD
 
         if (cursors.left.isDown) {
-            pos += 0.003;
-            if (pos >= 1) pos -= 1
+            world.pos += 0.003;
+            if (world.pos >= 1) world.pos -= 1
         }
         if (cursors.right.isDown) {
-            pos -= 0.003;
-            if (pos < 0) pos += 1
+            world.pos -= 0.003;
+            if (world.pos < 0) world.pos += 1
         }
 
-        if (fireButton.isDown) {
-            weapon.fire();
+        if (world.fireButton.isDown) {
+            world.weapon.fire();
         }
 
-        player.x = posToX(pos);
-        player.y = posToY(pos);
-        player.angle = pos * 360 - 90;
+        player.x = posToX(world.pos);
+        player.y = posToY(world.pos);
+        player.angle = world.pos * 360 - 90;
 
-        weapon.fireAngle = pos * 360 - 180
+        world.weapon.fireAngle = world.pos * 360 - 180
         // console.log("angle: " + weapon.bulletAngleOffset)
         // TODO: check for space and spawn a player shot towards the player
 
 
         // console.log(pos)
 
-        updateHUD(background_rendering);
+        updateHUD(game, world);
 
 
         // TODO: randomly move, rotate and let the generated enemies shoot
-        moveEnemies(game, enemies);
+        moveEnemies(game, world);
 
         // TODO: collision for playershot<->enemy and enemyshot<->player, also spawn awesome explosions on hit and update game state accordingly
     }

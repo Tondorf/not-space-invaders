@@ -33,8 +33,8 @@ function spawnEnemies(game) {
     return enemies
 }
 
-function moveEnemies(game, enemies) {
-    enemies.forEach(function (enemy) {
+function moveEnemies(game, world) {
+    world.enemies.forEach(function (enemy) {
         if (game.physics.arcade.distanceToXY(enemy, game.width/2, game.height/2) > enemyBoundary) {
             enemy.body.velocity.x = Math.floor(Math.random()*100-50);
             enemy.body.velocity.y = Math.floor(Math.random()*100-50);
