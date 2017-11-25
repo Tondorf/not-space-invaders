@@ -4,7 +4,7 @@ const Y = 800;
 const midX = X / 2;
 const midY = Y / 2;
 const RADIUS = Y / 2 - 50;
-const MAXLIFE = 5;
+const MAXLIFE = 1;
 const ENEMY_FIRE_CHANCE = 0.005; // [0..1]
 
 function posToX(pos, rad=RADIUS) {

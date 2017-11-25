@@ -39,7 +39,7 @@ function playerHit(game, world, bullet, player) {
     bullet.kill();
     world.life--;
     if (world.life <= 0) {
-
+        game.state.start('finish')
     }
     // ... TODO ...
 }

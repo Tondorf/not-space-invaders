@@ -11,7 +11,7 @@ var world = {
     player: null,
     level: 1,
     score: 0,
-    life: 5,
+    life: MAXLIFE,
     gun: null,
     enemies: null,
     explosions: null,
@@ -48,13 +48,6 @@ var playState = {
         game.time.desiredFps = 60;
         game.stage.backgroundColor = "#101010";
 
-        cursors = game.input.keyboard.createCursorKeys();
-        fireKey = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
-        pauseKey = this.input.keyboard.addKey(Phaser.KeyCode.P);
-        pauseKey.onDown.add(function () {
-            game.paused = !game.paused
-        }, this)
-
         world.background_rendering = game.add.graphics(0, 0);
         world.foreground_rendering = game.add.graphics(0, 0);
 
@@ -71,6 +64,29 @@ var playState = {
         spawnEnemies(game, world);
 
         createHUD(game, world);
+
+
+        // overlays
+        var pauseOverlay =  game.add.graphics()
+        pauseOverlay.beginFill(0x000000)
+        pauseOverlay.drawRect(0, 0, game.width, game.height)
+        pauseOverlay.fill = "#000000"
+        pauseOverlay.alpha = 0.8
+        pauseOverlay.visible = false
+
+        var pauseLabel = game.add.text(game.world.centerX, game.world.centerY, "Paused", {fill: "#ffffff"})
+        pauseLabel.visible = false
+
+        cursors = game.input.keyboard.createCursorKeys();
+        fireKey = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+        pauseKey = this.input.keyboard.addKey(Phaser.KeyCode.P);
+        pauseKey.onDown.add(function () {
+            game.paused = !game.paused
+            pauseOverlay.visible = game.paused
+            pauseLabel.visible = game.paused
+        }, this)
+
+
     },
 
     update: function() {
