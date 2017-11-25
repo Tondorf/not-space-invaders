@@ -38,11 +38,12 @@
 
 
     function create() {
+        game.physics.startSystem(Phaser.Physics.ARCADE);
         game.time.desiredFps = 60;
+        game.stage.backgroundColor = "#101010";
 
         cursors = game.input.keyboard.createCursorKeys();
         world.fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
-
 
         world.background_rendering = game.add.graphics(0, 0);
         world.foreground_rendering = game.add.graphics(0, 0);
