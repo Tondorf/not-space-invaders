@@ -14,6 +14,7 @@ var world = {
     life: MAXLIFE,
     gun: null,
     enemies: null,
+    ufo: null,
     explosions: null,
 
     pos: 0.25
@@ -23,10 +24,7 @@ var playState = {
     // var finish = new Phaser.Game(X, Y, Phaser.AUTO, 'container', {preload: {}, create: {}, update: {}});
 
 
-
-
-
-    preload: function() {
+    preload: function () {
         game.load.image('player', 'image/player.png');
         game.load.image('heart', 'image/heart.png');
         game.load.image('bullet', 'image/bullet.png');
@@ -35,6 +33,7 @@ var playState = {
 
         game.load.spritesheet('dude', 'image/dude.png', 32, 48);
         preloadEnemySprites(game);
+        game.load.image('ufo', 'image/ufo.png');
 
         game.paused = false
     },
@@ -42,8 +41,7 @@ var playState = {
     // TODO: introduce bombs as super attack
 
 
-
-    create: function() {
+    create: function () {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.time.desiredFps = 60;
         game.stage.backgroundColor = "#101010";
@@ -67,7 +65,7 @@ var playState = {
 
 
         // overlays
-        var pauseOverlay =  game.add.graphics()
+        var pauseOverlay = game.add.graphics()
         pauseOverlay.beginFill(0x000000)
         pauseOverlay.drawRect(0, 0, game.width, game.height)
         pauseOverlay.fill = "#000000"
@@ -89,7 +87,7 @@ var playState = {
 
     },
 
-    update: function() {
+    update: function () {
         // if (gam)
         world.foreground_rendering.clear();
 
@@ -97,6 +95,10 @@ var playState = {
         if (allEnemiesDead(game, world)) {
             world.level += 1;
             spawnEnemies(game, world);
+        }
+
+        if (world.ufo === null && Math.random() > 0.99) {
+            world.ufo = spawnUfo(game, world);
         }
 
         updateHUD(game, world);
@@ -122,11 +124,18 @@ var playState = {
         enemiesShoot(game, world);
         //world.enemies = world.enemies.filter(function (x) { return x.alive; });
 
+        moveUfo(game, world);
+
         // TODO: collision for playershot<->enemy and enemyshot<->player, also spawn awesome explosions on hit and update game state accordingly
         //  Run collision
         game.physics.arcade.overlap(world.gun.bullets, world.enemies, (b, e) => {
             enemyHit(game, world, b, e);
         }, null, this);
+
+        game.physics.arcade.overlap(world.gun.bullets, world.ufo, (bullet, ufo) => {
+            ufoHit(game, world, bullet, ufo);
+        }, null, this);
+
         //game.physics.arcade.overlap(world.gun.bullets, world.ufos, ufoHit, null, this); // TODO: ufos
         world.enemies.forEachAlive(function (enemy) {
             game.physics.arcade.overlap(enemy.gun.bullets, world.player, (b, p) => {
