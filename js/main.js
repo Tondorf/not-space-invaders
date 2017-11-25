@@ -4,14 +4,15 @@
     var game = new Phaser.Game(X, Y, Phaser.CANVAS, 'container', {preload: preload, create: create, update: update});
 
     function preload() {
-        game.load.image('player', 'assets/player.png');
-        game.load.image('heart', 'assets/heart.png');
-        game.load.image('bullet', 'assets/bullet.png');
-        game.load.image('enemyshot', 'assets/enemyshot.png');
-        game.load.spritesheet('explosion', 'assets/explosion-flamethrower.png', 512/8, 512/8, 8*8);
+        game.load.image('player', 'image/player.png');
+        game.load.image('heart', 'image/heart.png');
+        game.load.image('bullet', 'image/bullet.png');
+        game.load.image('enemyshot', 'image/enemyshot.png');
+        game.load.spritesheet('explosion', 'image/explosion-flamethrower.png', 512/8, 512/8, 8*8);
 
-        game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+        game.load.spritesheet('dude', 'image/dude.png', 32, 48);
         preloadEnemySprites(game);
+
     }
 
     // TODO: class for global game with one instance named 'world', which holds all data
@@ -37,6 +38,8 @@
 
 
     function create() {
+        game.time.desiredFps = 60;
+
         cursors = game.input.keyboard.createCursorKeys();
         world.fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 
