@@ -79,15 +79,23 @@
             weapon.trackSprite(player, 0, 0);
 
 
-            // bullets.setAll('outOfBoundsKill', true);
-            // bullets.setAll('checkWorldBounds', true);
-
 
             // draw player movement circle once
             background_rendering.lineStyle(10, 0xc0c0c0, 0.15);
             background_rendering.drawCircle(midX, midY, 2 * RADIUS);
 
-            // TODO: draw static parts of HUD
+            background_rendering.lineStyle(0, 0, 0);
+            background_rendering.beginFill(0xc0c0c0, 0.15);
+
+            var boxPadding = 15;
+            var boxWidth = 150;
+            var boxHeight = 30;
+            var boxSmoothing = 10;
+
+            background_rendering.drawRoundedRect(boxPadding, boxPadding, boxWidth, boxHeight, boxSmoothing);
+            background_rendering.drawRoundedRect(X - boxWidth - boxPadding, boxPadding, boxWidth, boxHeight, boxSmoothing);
+            background_rendering.drawRoundedRect(boxPadding, Y - boxHeight - boxPadding, boxWidth, boxHeight, boxSmoothing);
+            background_rendering.drawRoundedRect(X - boxWidth - boxPadding, Y - boxHeight - boxPadding, boxWidth, boxHeight, boxSmoothing)
         }
 
         function update() {
