@@ -16,9 +16,7 @@
         game.load.image('bullet', 'assets/bullet.png');
 
         game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-        game.load.spritesheet('enemy1', 'assets/enemy1.png', 48, 64);
-        game.load.spritesheet('enemy2', 'assets/enemy2.png', 48, 64);
-        game.load.spritesheet('enemy3', 'assets/enemy3.png', 48, 64);
+        initEnemySprites(game);
     }
 
     // TODO: class for global game with one instance named 'world', which holds all data
@@ -51,12 +49,7 @@
 
 
         // TODO: generate enemies (not directly here, write and call a function for that) so that they reside in an inner circular shape
-        // The enemies group contains all enemies in the middle
-        // enemies = game.add.group();
-        // for (e=0; e<20; e++) {
-        //     var enemy = enemies.create(midX, midY, 'enemy1');
-        //     enemies.push()
-        // }
+        enemies = spawnEnemies(game);
 
 
         //  Creates 30 bullets, using the 'bullet' graphic
@@ -123,6 +116,7 @@
 
 
         // TODO: randomly move, rotate and let the generated enemies shoot
+        moveEnemies(game, enemies);
 
         // TODO: collision for playershot<->enemy and enemyshot<->player, also spawn awesome explosions on hit and update game state accordingly
     }
