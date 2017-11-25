@@ -27,6 +27,7 @@
         life: 5,
         gun: null,
         enemies: null,
+        explosions: game.add.group(),
 
         pos: 0
     };
