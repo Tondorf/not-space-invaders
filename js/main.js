@@ -31,7 +31,7 @@
         enemies: null,
         explosions: null,
 
-        pos: 0
+        pos: 0.25
     };
 
 

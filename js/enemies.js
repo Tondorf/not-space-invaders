@@ -5,7 +5,8 @@ function preloadEnemySprites(game) {
     game.load.spritesheet('enemy3', 'assets/enemy3.png', 48, 32, 2);
 }
 
-var enemyBoundary;
+var enemyBoundaryRadius;
+var enemyBounds;
 
 function spawnEnemies(game) {
     // The enemies group contains all enemies in the middle
@@ -18,8 +19,8 @@ function spawnEnemies(game) {
         var enemy = enemies.create(x, y, 'enemy1', 0);
         enemy.anchor.setTo(0.5, 0.5);
         game.physics.arcade.enable(enemy);
-        enemy.body.bounce.x = Math.random()*0.5;
-        enemy.body.bounce.y = Math.random()*0.5;
+        // enemy.body.bounce.x = Math.random()*0.5;
+        // enemy.body.bounce.y = Math.random()*0.5;
         enemy.body.velocity.x = Math.floor(Math.random()*100-50);
         enemy.body.velocity.y = Math.floor(Math.random()*100-50);
 
@@ -28,16 +29,20 @@ function spawnEnemies(game) {
         enemy.animations.play('idle');
     }
 
-    enemyBoundary = 200;
+    enemyBoundaryRadius = 200;
+    //enemyBounds =
 
     return enemies
 }
 
 function moveEnemies(game, world) {
     world.enemies.forEach(function (enemy) {
-        if (game.physics.arcade.distanceToXY(enemy, game.width/2, game.height/2) > enemyBoundary) {
-            enemy.body.velocity.x = Math.floor(Math.random()*100-50);
-            enemy.body.velocity.y = Math.floor(Math.random()*100-50);
+        if (game.physics.arcade.distanceToXY(enemy, game.width/2, game.height/2) > enemyBoundaryRadius) {
+            game.physics.arcade.moveToXY(enemy, midX, midY, Math.floor(Math.random()*100-50));
+            if (Math.random() > 0.9) {
+                enemy.body.velocity.x = Math.floor(Math.random()*100-50);
+                enemy.body.velocity.y = Math.floor(Math.random()*100-50);
+            }
         }
     });
 }
