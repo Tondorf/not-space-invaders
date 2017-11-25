@@ -27,10 +27,13 @@ function spawnEnemies(game) {
         // Define Animation and play it endlessly
         enemy.animations.add('idle', [0, 1], 2, true);
         enemy.animations.play('idle');
+
+        enemy.angle = Math.random()*360;
     }
 
     enemyBoundaryRadius = 200;
-    //enemyBounds =
+    enemyBounds = Phaser.Circle(midX, midY, enemyBoundaryRadius); // maybe possible to use this for automated arcade collision?
+    //enemyBounds.immovable.setTo(true);
 
     return enemies
 }
@@ -43,6 +46,15 @@ function moveEnemies(game, world) {
                 enemy.body.velocity.x = Math.floor(Math.random()*100-50);
                 enemy.body.velocity.y = Math.floor(Math.random()*100-50);
             }
+        }
+        enemy.angle += Math.random()*3;
+    });
+}
+
+function enemiesShoot(game, world) {
+    world.enemies.forEach(function (enemy) {
+        if (Math.random() > 0.95) {
+
         }
     });
 }
