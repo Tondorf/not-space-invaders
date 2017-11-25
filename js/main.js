@@ -24,6 +24,8 @@
         foreground_rendering: null,
 
         player: null,
+        level: 1,
+        score: 0,
         life: 5,
         gun: null,
         enemies: null,
