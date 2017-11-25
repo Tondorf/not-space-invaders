@@ -50,6 +50,13 @@
 
         [world.player, world.gun] = createPlayerAndGun(game, world);
 
+        world.explosions = game.add.group();
+        world.explosions.createMultiple(42, 'explosion');
+        world.explosions.forEach(function setupInvader (invader) {
+            invader.anchor.setTo(0.5, 0.5);
+            invader.animations.add('explosion');
+        }, this);
+
         // TODO: generate enemies (not directly here, write and call hearts function for that) so that they reside in an inner circular shape
         world.enemies = spawnEnemies(game);
 
@@ -57,7 +64,7 @@
     }
 
     function update() {
-        world.foreground_rendering.clear()
+        world.foreground_rendering.clear();
 
         updateHUD(game, world);
 
@@ -88,7 +95,11 @@
         enemiesShoot(game, world);
 
         // TODO: collision for playershot<->enemy and enemyshot<->player, also spawn awesome explosions on hit and update game state accordingly
-    }
+        //  Run collision
+        game.physics.arcade.overlap(world.gun.bullets, world.enemies, (b,e) => { enemyHit(game, world, b, e); }, null, this);
+        //game.physics.arcade.overlap(world.gun.bullets, world.ufos, ufoHit, null, this); // TODO: ufos
+        game.physics.arcade.overlap(world.enemies.gun, world.player, (b, p) => { playerHit(game, world, b, p); }, null, this);
 
+    }
 
 })();

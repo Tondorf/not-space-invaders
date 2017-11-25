@@ -15,3 +15,7 @@ function posToX(pos) {
 function posToY(pos) {
     return (midY - RADIUS) + (1 + Math.sin(2 * Math.PI * pos)) * RADIUS
 }
+
+function spawnExplosion(game, world, opfer) {
+
+}
