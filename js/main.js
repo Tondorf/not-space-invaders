@@ -2,6 +2,7 @@
 
     // Game
     var game = new Phaser.Game(X, Y, Phaser.CANVAS, 'container', {preload: preload, create: create, update: update});
+    // var finish = new Phaser.Game(X, Y, Phaser.AUTO, 'container', {preload: {}, create: {}, update: {}});
 
     function preload() {
         game.load.image('player', 'image/player.png');
@@ -14,8 +15,6 @@
         preloadEnemySprites(game);
 
     }
-
-    // TODO: class for global game with one instance named 'world', which holds all data
 
     // TODO: introduce bombs as super attack
 
@@ -57,8 +56,7 @@
             invader.animations.add('explosion');
         }, this);
 
-        // TODO: generate enemies (not directly here, write and call hearts function for that) so that they reside in an inner circular shape
-        world.enemies = spawnEnemies(game);
+        world.enemies = spawnEnemies(game, 10);
 
         createHUD(game, world);
     }
@@ -85,8 +83,6 @@
         // TODO: check for space and spawn a player shot towards the player
 
         // console.log(pos)
-
-        // TODO: randomly move, rotate and let the generated enemies shoot
         moveEnemies(game, world);
         enemiesShoot(game, world);
         //world.enemies = world.enemies.filter(function (x) { return x.alive; });

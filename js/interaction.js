@@ -2,6 +2,7 @@ function enemyHit (game, world, bullet, enemy) {
     //  When a bullet hits an alien we kill them both
     bullet.kill();
     enemy.kill();
+    world.score += 1
 
     // TODO: Increase score
 
