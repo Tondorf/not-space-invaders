@@ -5,6 +5,12 @@
 
     // var finish = new Phaser.Game(X, Y, Phaser.AUTO, 'container', {preload: {}, create: {}, update: {}});
 
+    var cursors;
+    var pauseKey;
+    var fireKey;
+
+
+
     function preload() {
         game.load.image('player', 'image/player.png');
         game.load.image('heart', 'image/heart.png');
@@ -15,13 +21,13 @@
         game.load.spritesheet('dude', 'image/dude.png', 32, 48);
         preloadEnemySprites(game);
 
+        game.paused = false
     }
 
     // TODO: introduce bombs as super attack
 
     var world = {
         cursors: null,
-        fireButton: null,
         background_rendering: null,
         foreground_rendering: null,
 
@@ -43,7 +49,11 @@
         game.stage.backgroundColor = "#101010";
 
         cursors = game.input.keyboard.createCursorKeys();
-        world.fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+        fireKey = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+        pauseKey = this.input.keyboard.addKey(Phaser.KeyCode.P);
+        pauseKey.onDown.add(function () {
+            game.paused = !game.paused
+        }, this)
 
         world.background_rendering = game.add.graphics(0, 0);
         world.foreground_rendering = game.add.graphics(0, 0);
@@ -65,8 +75,9 @@
     }
 
     function update() {
+        // if (gam)
         world.foreground_rendering.clear();
-        console.log(world.enemies.length)
+        // console.log(world.enemies.length)
 
         if (allEnemiesDead(game, world)) {
             world.level += 1
@@ -83,7 +94,7 @@
             world.pos -= 0.003;
             if (world.pos < 0) world.pos += 1
         }
-        if (world.fireButton.isDown) {
+        if (fireKey.isDown) {
             world.gun.fire();
         }
 
