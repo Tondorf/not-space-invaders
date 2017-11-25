@@ -8,15 +8,15 @@ function preloadEnemySprites(game) {
 var enemyBoundaryRadius;
 var enemyBounds;
 
-function spawnEnemies(game, number) {
+function spawnEnemies(game, world, number) {
     // The enemies group contains all enemies in the middle
-    var enemies = game.add.group();
+    world.enemies = game.add.group();
     for (e = 0; e < number; e++) {
         var spawnSquare = 150;
         var x = game.width/2 + Math.floor(Math.random()*2*spawnSquare-spawnSquare);
         var y = game.height/2 + Math.floor(Math.random()*2*spawnSquare-spawnSquare);
 
-        var enemy = enemies.create(x, y, 'enemy1', 0);
+        var enemy = world.enemies.create(x, y, 'enemy1', 0);
         enemy.anchor.setTo(0.5, 0.5);
         game.physics.arcade.enable(enemy);
         // [enemy.body.bounce.x, enemy.body.bounce.y] = [Math.random()*0.5, Math.random()*0.5];
@@ -42,8 +42,6 @@ function spawnEnemies(game, number) {
     enemyBoundaryRadius = RADIUS-100;
     enemyBounds = Phaser.Circle(midX, midY, enemyBoundaryRadius); // maybe possible to use this for automated arcade collision?
     //enemyBounds.immovable.setTo(true);
-
-    return enemies
 }
 
 function moveEnemies(game, world) {
@@ -74,6 +72,5 @@ function enemiesShoot(game, world) {
 }
 
 function allEnemiesDead(game, world) {
-    console.log(world.enemies.filter(e => e.alive).size())
-    return
+    return world.enemies.filter(e => e.alive).list.length === 0
 }

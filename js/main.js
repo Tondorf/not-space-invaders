@@ -57,14 +57,20 @@
             explos.animations.add('kaboom');
         }, this);
 
-        world.enemies = spawnEnemies(game, 10);
-        // allEnemiesDead(game, world)
+        spawnEnemies(game, world, 3);
+
 
         createHUD(game, world);
     }
 
     function update() {
         world.foreground_rendering.clear();
+        console.log(world.enemies.length)
+
+        if (allEnemiesDead(game, world)) {
+            world.level += 1
+            spawnEnemies(game, world, 5 + 2 * world.level);
+        }
 
         updateHUD(game, world);
 
