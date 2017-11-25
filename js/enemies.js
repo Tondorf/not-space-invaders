@@ -38,7 +38,7 @@ function spawnEnemies(game) {
         enemy.gun.trackSprite(enemy, 0, 0);
     }
 
-    enemyBoundaryRadius = 200;
+    enemyBoundaryRadius = RADIUS-100;
     enemyBounds = Phaser.Circle(midX, midY, enemyBoundaryRadius); // maybe possible to use this for automated arcade collision?
     //enemyBounds.immovable.setTo(true);
 
