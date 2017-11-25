@@ -25,7 +25,7 @@ function ufoHit(game, world, bullet, ufo) {
     bullet.kill();
     ufo.kill();
     world.score += 10;
-    game.lives = Math.max(5, game.lives+1);
+    world.life = Math.min(MAXLIFE, world.life+1);
 
     // create explosion
     var explosion = world.explosions.getFirstExists(false);
