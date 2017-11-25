@@ -43,7 +43,7 @@
         game.physics.arcade.enable(player);
 
 
-        // TODO: generate enemies (not directly here, write and call a function for that) so that they reside in an inner circular shape
+        // TODO: generate enemies (not directly here, write and call hearts function for that) so that they reside in an inner circular shape
         world.enemies = spawnEnemies(game);
 
 
@@ -69,7 +69,9 @@
     }
 
     function update() {
-        // TODO: draw dynamic parts of HUD
+        world.foreground_rendering.clear()
+
+        updateHUD(game, world);
 
         if (cursors.left.isDown) {
             world.pos += 0.003;
@@ -90,12 +92,11 @@
 
         world.weapon.fireAngle = world.pos * 360 - 180
         // console.log("angle: " + weapon.bulletAngleOffset)
-        // TODO: check for space and spawn a player shot towards the player
+        // TODO: check for space and spawn hearts player shot towards the player
 
 
         // console.log(pos)
 
-        updateHUD(game, world);
 
 
         // TODO: randomly move, rotate and let the generated enemies shoot
