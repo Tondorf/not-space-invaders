@@ -7,12 +7,12 @@ const RADIUS = Y / 2 - 50;
 const MAXLIFE = 5;
 const ENEMY_FIRE_CHANCE = 0.005; // [0..1]
 
-function posToX(pos) {
-    return (midX - RADIUS) + (1 + Math.cos(2 * Math.PI * pos)) * RADIUS
+function posToX(pos, rad=RADIUS) {
+    return (midX - rad) + (1 + Math.cos(2 * Math.PI * pos)) * rad
 }
 
-function posToY(pos) {
-    return (midY - RADIUS) + (1 + Math.sin(2 * Math.PI * pos)) * RADIUS
+function posToY(pos, rad=RADIUS) {
+    return (midY - rad) + (1 + Math.sin(2 * Math.PI * pos)) * rad
 }
 
 function spawnExplosion(game, world, opfer) {

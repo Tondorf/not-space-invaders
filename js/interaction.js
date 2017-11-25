@@ -2,9 +2,7 @@ function enemyHit(game, world, bullet, enemy) {
     //  When a bullet hits an alien we kill them both
     bullet.kill();
     enemy.kill();
-    world.score += 1
-
-    // TODO: Increase score
+    world.score += 1;
 
     // create explosion
     var explosion = world.explosions.getFirstExists(false);
@@ -20,6 +18,21 @@ function enemyHit(game, world, bullet, enemy) {
     //     //the "click to restart" handler
     //     game.input.onTap.addOnce(restart,this);
     // }
+}
+
+function ufoHit(game, world, bullet, ufo) {
+    //  When a bullet hits an alien we kill them both
+    bullet.kill();
+    ufo.kill();
+    world.score += 10;
+    game.lives = Math.max(5, game.lives+1);
+
+    // create explosion
+    var explosion = world.explosions.getFirstExists(false);
+    explosion.reset(ufo.body.x + ufo.width / 2, ufo.body.y + ufo.height / 2);
+    explosion.play('kaboom', 30, false, true);
+
+    world.ufo = null; // you will be reborn soon
 }
 
 function playerHit(game, world, bullet, player) {

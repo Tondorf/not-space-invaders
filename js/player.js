@@ -24,8 +24,8 @@ function createPlayerAndGun(game, world) {
 }
 
 function updatePlayerAndGun(game, world) {
-    world.player.x = posToX(world.pos);
-    world.player.y = posToY(world.pos);
+    world.player.x = posToX(world.pos, rad=RADIUS-5);
+    world.player.y = posToY(world.pos, rad=RADIUS-5);
     world.player.angle = world.pos * 360 - 90;
 
     world.gun.fireAngle = world.pos * 360 - 180;
