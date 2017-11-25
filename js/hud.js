@@ -5,7 +5,6 @@ const boxHeight = 30;
 const boxSmoothing = 10;
 
 var hearts;
-var currentLife = 4;
 
 function createHUD(game, world) {
 // draw player movement circle once
@@ -28,8 +27,8 @@ function createHUD(game, world) {
 
 function updateHUD(game, world) {
 
-    hearts.slice(0, currentLife).map(t => t.visible = true)
-    hearts.slice(currentLife, LIFE).map(t => t.visible = false)
+    hearts.slice(0, world.life).map(t => t.visible = true)
+    hearts.slice(world.life, LIFE).map(t => t.visible = false)
 
 
     // console.log(hearts)
