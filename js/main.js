@@ -7,6 +7,7 @@
         game.load.image('player', 'assets/player.png');
         game.load.image('heart', 'assets/heart.png');
         game.load.image('bullet', 'assets/bullet.png');
+        game.load.spritesheet('explosion', 'assets/explosion-flamethrower.png', 512/8, 512/8, 8*8);
 
         game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
         preloadEnemySprites(game);
