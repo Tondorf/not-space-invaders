@@ -9,7 +9,7 @@
         game.load.image('heart', 'image/heart.png');
         game.load.image('bullet', 'image/bullet.png');
         game.load.image('enemyshot', 'image/enemyshot.png');
-        game.load.spritesheet('explosion', 'image/explosion-flamethrower.png', 512/8, 512/8, 8*8);
+        game.load.spritesheet('kaboom', 'image/kaboom.png', 128, 128, 16);
 
         game.load.spritesheet('dude', 'image/dude.png', 32, 48);
         preloadEnemySprites(game);
@@ -50,10 +50,11 @@
         [world.player, world.gun] = createPlayerAndGun(game, world);
 
         world.explosions = game.add.group();
-        world.explosions.createMultiple(42, 'explosion');
-        world.explosions.forEach(function setupInvader (invader) {
-            invader.anchor.setTo(0.5, 0.5);
-            invader.animations.add('explosion');
+        world.explosions.createMultiple(42, 'kaboom');
+        world.explosions.forEach(function setupInvader (explos) {
+            explos.scale.setTo(0.5, 0.5);
+            explos.anchor.setTo(0.5, 0.5);
+            explos.animations.add('kaboom');
         }, this);
 
         world.enemies = spawnEnemies(game, 10);

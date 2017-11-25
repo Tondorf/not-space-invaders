@@ -16,8 +16,8 @@ function createPlayerAndGun(game, world) {
     //  Because our bullet is drawn facing up, we need to offset its rotation:
 
     //  The speed at which the bullet is fired
-    gun.bulletSpeed = 400;
-    gun.fireRate = 180;
+    gun.bulletSpeed = 600;
+    gun.fireRate = 200;
     // weapon.bulletSpeedVariance = 200;
     gun.trackSprite(player, 0, 0);
 
