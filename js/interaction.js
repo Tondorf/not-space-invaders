@@ -23,5 +23,9 @@ function enemyHit (game, world, bullet, enemy) {
 
 function playerHit (game, world, bullet, player) {
     bullet.kill();
+    world.life--;
+    if (world.life <= 0) {
+
+    }
     // ... TODO ...
 }

@@ -30,15 +30,14 @@ function spawnEnemies(game) {
         // start with random rotation
         enemy.angle = Math.random()*360;
 
+        // create a shared gun for all enemies, mostly copied over from player gun setup
+        enemy.gun = game.add.weapon(5, 'enemyshot');
+        enemy.gun.bulletAngleOffset = 90;
+        enemy.gun.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+        enemy.gun.bulletSpeed = 200;
+        enemy.gun.fireRate = 180;
+        enemy.gun.trackSprite(enemy, 0, 0);
     }
-
-    // create a shared gun for all enemies, mostly copied over from player gun setup
-    enemies.gun = game.add.weapon(5, 'enemyshot');
-    enemies.gun.bulletAngleOffset = 90;
-    enemies.gun.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-    enemies.gun.bulletSpeed = 200;
-    enemies.gun.fireRate = 180;
-    enemies.gun.trackSprite(enemy, 0, 0);
 
     enemyBoundaryRadius = RADIUS-100;
     enemyBounds = Phaser.Circle(midX, midY, enemyBoundaryRadius); // maybe possible to use this for automated arcade collision?
@@ -66,10 +65,11 @@ function randomVelocity(enemy) {
 }
 
 function enemiesShoot(game, world) {
-    world.enemies.forEach(function (enemy) {
-        if (Math.random() > 1-ENEMY_FIRE_CHANCE) {
-            world.enemies.gun.fireAngle = -enemy.angle;
-            world.enemies.gun.fire();
+    console.log(world.enemies.length)
+    world.enemies.forEachAlive(function (enemy) {
+        if (enemy.alive && Math.random() > 1-ENEMY_FIRE_CHANCE) {
+            enemy.gun.fireAngle = -enemy.angle;
+            enemy.gun.fire();
         }
     });
 }

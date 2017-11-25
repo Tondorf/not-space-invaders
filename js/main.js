@@ -82,23 +82,22 @@
 
         updatePlayerAndGun(game, world);
 
-
         // TODO: check for space and spawn a player shot towards the player
 
-
         // console.log(pos)
-
-
 
         // TODO: randomly move, rotate and let the generated enemies shoot
         moveEnemies(game, world);
         enemiesShoot(game, world);
+        //world.enemies = world.enemies.filter(function (x) { return x.alive; });
 
         // TODO: collision for playershot<->enemy and enemyshot<->player, also spawn awesome explosions on hit and update game state accordingly
         //  Run collision
         game.physics.arcade.overlap(world.gun.bullets, world.enemies, (b,e) => { enemyHit(game, world, b, e); }, null, this);
         //game.physics.arcade.overlap(world.gun.bullets, world.ufos, ufoHit, null, this); // TODO: ufos
-        game.physics.arcade.overlap(world.enemies.gun, world.player, (b, p) => { playerHit(game, world, b, p); }, null, this);
+        world.enemies.forEachAlive(function (enemy) {
+            game.physics.arcade.overlap(enemy.gun.bullets, world.player, (b, p) => { playerHit(game, world, p, b); }, null, this);
+        })
 
     }
 
