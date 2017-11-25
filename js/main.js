@@ -1,14 +1,14 @@
 (function () {
 
     // Globals
-    const X = 1600;
-    const Y = 900;
+    const X = 1200;
+    const Y = 800;
     const midX = X/2;
     const midY = Y/2;
     const RADIUS = Y/2-100;
 
     // Game
-    var game = new Phaser.Game(X, Y, Phaser.CANVAS, '', {preload: preload, create: create, update: update});
+    var game = new Phaser.Game(X, Y, Phaser.CANVAS, 'container', {preload: preload, create: create, update: update});
 
     function preload() {
         game.load.image('sky', 'assets/sky.png');
