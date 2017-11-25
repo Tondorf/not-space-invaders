@@ -9,7 +9,7 @@ var enemyBoundary;
 
 function spawnEnemies(game) {
     // The enemies group contains all enemies in the middle
-    enemies = game.add.group();
+    var enemies = game.add.group();
     for (e = 0; e < 50; e++) {
         var spawnSquare = 150;
         var x = game.width/2 + Math.floor(Math.random()*2*spawnSquare-spawnSquare);
