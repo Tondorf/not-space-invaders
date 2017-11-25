@@ -15,6 +15,6 @@ function posToY(pos, rad=RADIUS) {
     return (midY - rad) + (1 + Math.sin(2 * Math.PI * pos)) * rad
 }
 
-function spawnExplosion(game, world, opfer) {
-
+function rnd_int(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
