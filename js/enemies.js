@@ -73,3 +73,8 @@ function enemiesShoot(game, world) {
         }
     });
 }
+
+function allEnemiesDead(game, world) {
+    console.log(world.enemies.filter(e => e.alive).size())
+    return
+}

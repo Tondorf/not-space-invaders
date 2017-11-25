@@ -57,6 +57,7 @@
         }, this);
 
         world.enemies = spawnEnemies(game, 10);
+        // allEnemiesDead(game, world)
 
         createHUD(game, world);
     }
