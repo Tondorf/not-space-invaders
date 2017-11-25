@@ -65,9 +65,8 @@ function randomVelocity(enemy) {
 }
 
 function enemiesShoot(game, world) {
-    console.log(world.enemies.length)
     world.enemies.forEachAlive(function (enemy) {
-        if (enemy.alive && Math.random() > 1-ENEMY_FIRE_CHANCE) {
+        if (Math.random() > 1-ENEMY_FIRE_CHANCE) {
             enemy.gun.fireAngle = -enemy.angle;
             enemy.gun.fire();
         }

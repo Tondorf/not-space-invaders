@@ -9,7 +9,7 @@ function enemyHit (game, world, bullet, enemy) {
     // create explosion
     var explosion = world.explosions.getFirstExists(false);
     explosion.reset(enemy.body.x+enemy.width/2, enemy.body.y+enemy.height/2); // for some reason this isn't focused on the enemy... :(
-    explosion.play('explosion', 30, false, true);
+    explosion.play('kaboom', 30, false, true);
 
     // if (aliens.countLiving() == 0)
     // {
