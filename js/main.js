@@ -1,68 +1,80 @@
 (function () {
-    var game = new Phaser.Game(800, 601, Phaser.CANVAS, '', {preload: preload, create: create, update: update});
+
+    // Globals
+    const X = 1600;
+    const Y = 900;
+    const midX = X/2;
+    const midY = Y/2;
+    const RADIUS = Y/2-100;
+
+    // Game
+    var game = new Phaser.Game(X, Y, Phaser.CANVAS, '', {preload: preload, create: create, update: update});
 
     function preload() {
-
         game.load.image('sky', 'assets/sky.png');
         game.load.image('ground', 'assets/platform.png');
         game.load.image('star', 'assets/star.png');
         game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-
     }
+
+    // TODO: class for global game with one instance named 'world', which holds all data
 
     var cursors;
     var player;
-    var player_graphics
-
+    var player_graphics;
 
     // important value in [0, 1]
-    // 0 is left, 0.5 is top, 1 is right, 1.5 is bottom, 2 is left
-    var pos = 0.75;
+    // 0 is right, 0.25 is bottom, 0.5 is left, 0.75 is top
+    var pos = 0.25;
 
-
-    var radius = 300;
     var x = Math.cos(2 * Math.PI * pos);
     var y = Math.sin(2 * Math.PI * pos);
-
 
     console.log("x: " + x + " y: " + y);
 
     function create() {
         cursors = game.input.keyboard.createCursorKeys();
 
+        // TODO: draw static parts of HUD
+
         var graphics = game.add.graphics(0, 0);
         player_graphics =  game.add.graphics(0, 0);
 
+        // TODO: generate enemies (not directly here, write and call a function for that) so that they reside in an inner circular shape
+
         graphics.lineStyle(3, 0xc0c0c0, 1);
 
-        // graphics.beginFill(0x000000, 1);
-        graphics.drawCircle(radius, radius, 2 * radius);
-
-        player_graphics.lineStyle(3, 0xff0000, 1);
-        player_graphics.beginFill(0xff0000, 1);
-        player_graphics.drawCircle((1 + x) * radius, (1 + y) * radius, 5)
-
+        // draw player movement circle once
+        graphics.drawCircle(midX, midY, 2 * RADIUS);
     }
 
     function update() {
+        // TODO: draw dynamic parts of HUD
+
         if (cursors.left.isDown) {
             pos += 0.003;
             if (pos >= 1) pos -= 1
         }
-
         if (cursors.right.isDown) {
             pos -= 0.003;
             if (pos < 0) pos += 1
         }
+        // TODO: check for space and spawn a player shot towards the player
 
         // console.log(pos)
 
         x = Math.cos(2 * Math.PI * pos);
         y = Math.sin(2 * Math.PI * pos);
+        // TODO calculate orientation for player sprite so that it looks toward the center
 
-        player_graphics.clear()
+        // TODO: draw real sprite (with calculated orientation)
+        player_graphics.clear();
         player_graphics.lineStyle(3, 0xff0000, 1);
         player_graphics.beginFill(0xff0000, 1);
-        player_graphics.drawCircle((1 + x) * radius, (1 + y) * radius, 5)
+        player_graphics.drawCircle((midX-RADIUS) + (1+x)*RADIUS, (midY-RADIUS) + (1+y)*RADIUS, 5)
+
+        // TODO: randomly move, rotate and let the generated enemies shoot
+
+        // TODO: collision for playershot<->enemy and enemyshot<->player, also spawn awesome explosions on hit and update game state accordingly
     }
 })();
