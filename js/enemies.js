@@ -1,6 +1,6 @@
 function preloadEnemySprites(game) {
     game.load.spritesheet('enemy1', 'image/enemy1.png', 32, 32);
-    game.load.spritesheet('enemy2', 'image/enemy2.png', 48, 32, 2);
+    game.load.spritesheet('enemy2', 'image/enemy2.png', 44, 32, 2);
     game.load.spritesheet('enemy3', 'image/enemy3.png', 48, 32, 2);
 }
 
@@ -13,10 +13,10 @@ function spawnEnemies(game, world) {
     world.enemies = game.add.group();
     for (e = 0; e < enemies2spawn; e++) {
         var spawnSquare = 150;
-        var x = game.width / 2 + Math.floor(Math.random() * 2 * spawnSquare - spawnSquare);
-        var y = game.height / 2 + Math.floor(Math.random() * 2 * spawnSquare - spawnSquare);
+        var x = game.width / 2 + rnd_int(-spawnSquare, spawnSquare);
+        var y = game.height / 2 + rnd_int(-spawnSquare, spawnSquare);
 
-        var enemy = world.enemies.create(x, y, 'enemy1', 0);
+        var enemy = world.enemies.create(x, y, 'enemy'+rnd_int(1,3), 0);
         enemy.anchor.setTo(0.5, 0.5);
         game.physics.arcade.enable(enemy);
         // [enemy.body.bounce.x, enemy.body.bounce.y] = [Math.random()*0.5, Math.random()*0.5];
@@ -47,7 +47,7 @@ function spawnEnemies(game, world) {
 function moveEnemies(game, world) {
     world.enemies.forEach(function (enemy) {
         if (game.physics.arcade.distanceToXY(enemy, game.width / 2, game.height / 2) > enemyBoundaryRadius) {
-            game.physics.arcade.moveToXY(enemy, midX, midY, Math.floor(Math.random() * 100 - 50));
+            game.physics.arcade.moveToXY(enemy, midX, midY, rnd_int(-50, 50));
             // if enemy is too far from the center, with 1 percent chance, apply random direction
             if (Math.random() > 0.99) {
                 randomVelocity(enemy);
@@ -59,7 +59,7 @@ function moveEnemies(game, world) {
 }
 
 function randomVelocity(enemy) {
-    enemy.body.velocity.setTo(Math.floor(Math.random() * 100 - 50), Math.floor(Math.random() * 100 - 50));
+    enemy.body.velocity.setTo(rnd_int(-50, 50), rnd_int(-50, 50));
 }
 
 function enemiesShoot(game, world) {
