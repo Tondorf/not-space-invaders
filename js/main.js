@@ -15,6 +15,8 @@
 
     // TODO: class for global game with one instance named 'world', which holds all data
 
+    // TODO: introduce bombs as super attack
+
     var world = {
         cursors: null,
         fireButton: null,
