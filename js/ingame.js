@@ -73,6 +73,7 @@ var playState = {
         pauseOverlay.visible = false
 
         var pauseLabel = game.add.text(game.world.centerX, game.world.centerY, "Paused", {fill: "#ffffff"})
+        pauseLabel.anchor.set(0.5, 0.5)
         pauseLabel.visible = false
 
         cursors = game.input.keyboard.createCursorKeys();
