@@ -2,6 +2,7 @@
 
     // Game
     var game = new Phaser.Game(X, Y, Phaser.CANVAS, 'container', {preload: preload, create: create, update: update});
+
     // var finish = new Phaser.Game(X, Y, Phaser.AUTO, 'container', {preload: {}, create: {}, update: {}});
 
     function preload() {
@@ -51,7 +52,7 @@
 
         world.explosions = game.add.group();
         world.explosions.createMultiple(42, 'kaboom');
-        world.explosions.forEach(function setupInvader (explos) {
+        world.explosions.forEach(function setupInvader(explos) {
             explos.scale.setTo(0.5, 0.5);
             explos.anchor.setTo(0.5, 0.5);
             explos.animations.add('kaboom');
@@ -97,10 +98,14 @@
 
         // TODO: collision for playershot<->enemy and enemyshot<->player, also spawn awesome explosions on hit and update game state accordingly
         //  Run collision
-        game.physics.arcade.overlap(world.gun.bullets, world.enemies, (b,e) => { enemyHit(game, world, b, e); }, null, this);
+        game.physics.arcade.overlap(world.gun.bullets, world.enemies, (b, e) => {
+            enemyHit(game, world, b, e);
+        }, null, this);
         //game.physics.arcade.overlap(world.gun.bullets, world.ufos, ufoHit, null, this); // TODO: ufos
         world.enemies.forEachAlive(function (enemy) {
-            game.physics.arcade.overlap(enemy.gun.bullets, world.player, (b, p) => { playerHit(game, world, p, b); }, null, this);
+            game.physics.arcade.overlap(enemy.gun.bullets, world.player, (b, p) => {
+                playerHit(game, world, p, b);
+            }, null, this);
         })
 
     }

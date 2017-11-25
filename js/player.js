@@ -1,4 +1,3 @@
-
 function createPlayerAndGun(game, world) {
 
     var player = game.add.sprite(0, 0, 'player');

@@ -1,4 +1,3 @@
-
 function preloadEnemySprites(game) {
     game.load.spritesheet('enemy1', 'image/enemy1.png', 32, 32);
     game.load.spritesheet('enemy2', 'image/enemy2.png', 48, 32, 2);
@@ -13,8 +12,8 @@ function spawnEnemies(game, world, number) {
     world.enemies = game.add.group();
     for (e = 0; e < number; e++) {
         var spawnSquare = 150;
-        var x = game.width/2 + Math.floor(Math.random()*2*spawnSquare-spawnSquare);
-        var y = game.height/2 + Math.floor(Math.random()*2*spawnSquare-spawnSquare);
+        var x = game.width / 2 + Math.floor(Math.random() * 2 * spawnSquare - spawnSquare);
+        var y = game.height / 2 + Math.floor(Math.random() * 2 * spawnSquare - spawnSquare);
 
         var enemy = world.enemies.create(x, y, 'enemy1', 0);
         enemy.anchor.setTo(0.5, 0.5);
@@ -28,7 +27,7 @@ function spawnEnemies(game, world, number) {
         enemy.animations.play('idle');
 
         // start with random rotation
-        enemy.angle = Math.random()*360;
+        enemy.angle = Math.random() * 360;
 
         // create a shared gun for all enemies, mostly copied over from player gun setup
         enemy.gun = game.add.weapon(5, 'enemyshot');
@@ -39,22 +38,22 @@ function spawnEnemies(game, world, number) {
         enemy.gun.trackSprite(enemy, 0, 0);
     }
 
-    enemyBoundaryRadius = RADIUS-100;
+    enemyBoundaryRadius = RADIUS - 100;
     enemyBounds = Phaser.Circle(midX, midY, enemyBoundaryRadius); // maybe possible to use this for automated arcade collision?
     //enemyBounds.immovable.setTo(true);
 }
 
 function moveEnemies(game, world) {
     world.enemies.forEach(function (enemy) {
-        if (game.physics.arcade.distanceToXY(enemy, game.width/2, game.height/2) > enemyBoundaryRadius) {
-            game.physics.arcade.moveToXY(enemy, midX, midY, Math.floor(Math.random()*100-50));
+        if (game.physics.arcade.distanceToXY(enemy, game.width / 2, game.height / 2) > enemyBoundaryRadius) {
+            game.physics.arcade.moveToXY(enemy, midX, midY, Math.floor(Math.random() * 100 - 50));
             // if enemy is too far from the center, with 1 percent chance, apply random direction
             if (Math.random() > 0.99) {
                 randomVelocity(enemy);
             }
         }
         // rotate by a random amount of degrees
-        enemy.angle += Math.random()*3;
+        enemy.angle += Math.random() * 3;
     });
 }
 
@@ -64,7 +63,7 @@ function randomVelocity(enemy) {
 
 function enemiesShoot(game, world) {
     world.enemies.forEachAlive(function (enemy) {
-        if (Math.random() > 1-ENEMY_FIRE_CHANCE) {
+        if (Math.random() > 1 - ENEMY_FIRE_CHANCE) {
             enemy.gun.fireAngle = -enemy.angle;
             enemy.gun.fire();
         }
