@@ -11,7 +11,7 @@ var enemyBounds;
 function spawnEnemies(game) {
     // The enemies group contains all enemies in the middle
     var enemies = game.add.group();
-    for (e = 0; e < 50; e++) {
+    for (e = 0; e < ENEMIES2SPAWN; e++) {
         var spawnSquare = 150;
         var x = game.width/2 + Math.floor(Math.random()*2*spawnSquare-spawnSquare);
         var y = game.height/2 + Math.floor(Math.random()*2*spawnSquare-spawnSquare);
@@ -19,16 +19,23 @@ function spawnEnemies(game) {
         var enemy = enemies.create(x, y, 'enemy1', 0);
         enemy.anchor.setTo(0.5, 0.5);
         game.physics.arcade.enable(enemy);
-        // enemy.body.bounce.x = Math.random()*0.5;
-        // enemy.body.bounce.y = Math.random()*0.5;
-        enemy.body.velocity.x = Math.floor(Math.random()*100-50);
-        enemy.body.velocity.y = Math.floor(Math.random()*100-50);
+        // [enemy.body.bounce.x, enemy.body.bounce.y] = [Math.random()*0.5, Math.random()*0.5];
+        [enemy.body.velocity.x, enemy.body.velocity.y] = [Math.floor(Math.random()*100-50), Math.floor(Math.random()*100-50)];
 
         // Define Animation and play it endlessly
         enemy.animations.add('idle', [0, 1], 2, true);
         enemy.animations.play('idle');
 
+        // start with random rotation
         enemy.angle = Math.random()*360;
+
+        // assign a gun to each enemy, mostly copied over from player gun setup
+        enemy.gun = game.add.weapon(2, 'enemyshot');
+        enemy.gun.bulletAngleOffset = 90;
+        enemy.gun.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+        enemy.gun.bulletSpeed = 200;
+        enemy.gun.fireRate = 180;
+        enemy.gun.trackSprite(enemy, 0, 0);
     }
 
     enemyBoundaryRadius = 200;
@@ -42,19 +49,22 @@ function moveEnemies(game, world) {
     world.enemies.forEach(function (enemy) {
         if (game.physics.arcade.distanceToXY(enemy, game.width/2, game.height/2) > enemyBoundaryRadius) {
             game.physics.arcade.moveToXY(enemy, midX, midY, Math.floor(Math.random()*100-50));
-            if (Math.random() > 0.9) {
+            // if enemy is too far from the center, with 1 percent chance, apply random direction
+            if (Math.random() > 0.99) {
                 enemy.body.velocity.x = Math.floor(Math.random()*100-50);
                 enemy.body.velocity.y = Math.floor(Math.random()*100-50);
             }
         }
+        // rotate by a random amount of degrees
         enemy.angle += Math.random()*3;
     });
 }
 
 function enemiesShoot(game, world) {
     world.enemies.forEach(function (enemy) {
-        if (Math.random() > 0.95) {
-
+        if (Math.random() > 1-ENEMY_FIRE_CHANCE) {
+            enemy.gun.fireAngle = -enemy.angle;
+            enemy.gun.fire();
         }
     });
 }

@@ -7,6 +7,7 @@
         game.load.image('player', 'assets/player.png');
         game.load.image('heart', 'assets/heart.png');
         game.load.image('bullet', 'assets/bullet.png');
+        game.load.image('enemyshot', 'assets/enemyshot.png');
         game.load.spritesheet('explosion', 'assets/explosion-flamethrower.png', 512/8, 512/8, 8*8);
 
         game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
@@ -80,6 +81,7 @@
 
         // TODO: randomly move, rotate and let the generated enemies shoot
         moveEnemies(game, world);
+        enemiesShoot(game, world);
 
         // TODO: collision for playershot<->enemy and enemyshot<->player, also spawn awesome explosions on hit and update game state accordingly
     }
