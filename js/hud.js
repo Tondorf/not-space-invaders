@@ -20,7 +20,7 @@ function createHUD(game, world) {
     world.background_rendering.drawRoundedRect(boxPadding, Y - boxHeight - boxPadding, boxWidth, boxHeight, boxSmoothing);
     world.background_rendering.drawRoundedRect(X - boxWidth - boxPadding, Y - boxHeight - boxPadding, boxWidth, boxHeight, boxSmoothing)
 
-    hearts = new Array(LIFE).fill(undefined).map((_, i) => game.add.sprite(boxPadding + boxWidth / (LIFE + 1) * (1 + i), boxPadding + boxHeight / 2, 'heart'));
+    hearts = new Array(MAXLIFE).fill(undefined).map((_, i) => game.add.sprite(boxPadding + boxWidth / (MAXLIFE + 1) * (1 + i), boxPadding + boxHeight / 2, 'heart'));
     hearts.map(t => t.scale.set(0.5))
     hearts.map(t => t.anchor.set(0.5, 0.5))
 }
@@ -28,7 +28,7 @@ function createHUD(game, world) {
 function updateHUD(game, world) {
 
     hearts.slice(0, world.life).map(t => t.visible = true)
-    hearts.slice(world.life, LIFE).map(t => t.visible = false)
+    hearts.slice(world.life, MAXLIFE).map(t => t.visible = false)
 
 
     // console.log(hearts)
