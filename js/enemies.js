@@ -7,10 +7,11 @@ function preloadEnemySprites(game) {
 var enemyBoundaryRadius;
 var enemyBounds;
 
-function spawnEnemies(game, world, number) {
+function spawnEnemies(game, world) {
     // The enemies group contains all enemies in the middle
+    var enemies2spawn = 5 + 2 * world.level;
     world.enemies = game.add.group();
-    for (e = 0; e < number; e++) {
+    for (e = 0; e < enemies2spawn; e++) {
         var spawnSquare = 150;
         var x = game.width / 2 + Math.floor(Math.random() * 2 * spawnSquare - spawnSquare);
         var y = game.height / 2 + Math.floor(Math.random() * 2 * spawnSquare - spawnSquare);
