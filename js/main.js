@@ -11,7 +11,10 @@
         var game = new Phaser.Game(X, Y, Phaser.CANVAS, 'container', {preload: preload, create: create, update: update});
 
         function preload() {
-            game.load.image('player', 'assets/player.png', 52, 32);
+            game.load.image('player', 'assets/player.png');
+            game.load.image('heart', 'assets/heart.png');
+            game.load.image('bullet', 'assets/bullet.png');
+
             game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
             game.load.spritesheet('enemy1', 'assets/enemy1.png', 48, 64);
             game.load.spritesheet('enemy2', 'assets/enemy2.png', 48, 64);
@@ -21,28 +24,33 @@
         // TODO: class for global game with one instance named 'world', which holds all data
 
         var cursors;
-        var player;
+        var fireButton;
         var background_rendering;
         var foreground_rendering;
+
+        var player;
         var enemies;
+        var weapon;
 
         var pos = 0;
 
 
         function create() {
             cursors = game.input.keyboard.createCursorKeys();
+            fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 
-            // TODO: draw static parts of HUD
 
             background_rendering = game.add.graphics(0, 0);
             foreground_rendering =  game.add.graphics(0, 0);
 
             player = game.add.sprite(0, 0, 'player');
-            player.scale.setTo(0.5  )
-            player.anchor.setTo(0.5, 0.5)
+            player.scale.setTo(0.5  );
+            player.anchor.setTo(0.5, 0.5);
 
-            game.physics.arcade.enable(player)
-            console.log("X: " + player.width)
+            game.physics.arcade.enable(player);
+
+
+
 
             // TODO: generate enemies (not directly here, write and call a function for that) so that they reside in an inner circular shape
             // The enemies group contains all enemies in the middle
@@ -52,10 +60,34 @@
             //     enemies.push()
             // }
 
-            background_rendering.lineStyle(10, 0xc0c0c0, 0.1);
+
+
+            //  Creates 30 bullets, using the 'bullet' graphic
+            weapon = game.add.weapon(30, 'bullet');
+            weapon.bulletAngleOffset = 90;
+
+            //  The bullet will be automatically killed when it leaves the world bounds
+            weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+
+            //  Because our bullet is drawn facing up, we need to offset its rotation:
+
+
+            //  The speed at which the bullet is fired
+            weapon.bulletSpeed = 400;
+            weapon.fireRate = 180;
+            // weapon.bulletSpeedVariance = 200;
+            weapon.trackSprite(player, 0, 0);
+
+
+            // bullets.setAll('outOfBoundsKill', true);
+            // bullets.setAll('checkWorldBounds', true);
+
 
             // draw player movement circle once
+            background_rendering.lineStyle(10, 0xc0c0c0, 0.15);
             background_rendering.drawCircle(midX, midY, 2 * RADIUS);
+
+            // TODO: draw static parts of HUD
         }
 
         function update() {
@@ -70,23 +102,24 @@
                 if (pos < 0) pos += 1
             }
 
-            player.x = posToX(pos)
-            player.y = posToY(pos)
-            player.angle = pos * 360 - 90
+            if (fireButton.isDown)
+            {
+                weapon.fire();
+            }
+
+            player.x = posToX(pos);
+            player.y = posToY(pos);
+            player.angle = pos * 360 - 90;
+
+            weapon.fireAngle = pos * 360 - 180
+            // console.log("angle: " + weapon.bulletAngleOffset)
             // TODO: check for space and spawn a player shot towards the player
+
+
 
             // console.log(pos)
 
 
-            // TODO calculate orientation for player sprite so that it looks toward the center
-
-            // TODO: draw real sprite (with calculated orientation)
-            // foreground_rendering.clear();
-            // foreground_rendering.lineStyle(3, 0xBCA9F5, 1);
-            // foreground_rendering.beginFill(0xBCA9F5 , 1);
-            // foreground_rendering.drawCircle((midX-RADIUS) + (1+x)*RADIUS, (midY-RADIUS) + (1+y)*RADIUS, 15)
-
-            console.log()
 
             // TODO: randomly move, rotate and let the generated enemies shoot
 
