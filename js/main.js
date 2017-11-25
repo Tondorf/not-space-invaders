@@ -11,10 +11,11 @@
     var game = new Phaser.Game(X, Y, Phaser.CANVAS, 'container', {preload: preload, create: create, update: update});
 
     function preload() {
-        game.load.image('sky', 'assets/sky.png');
-        game.load.image('ground', 'assets/platform.png');
         game.load.image('star', 'assets/star.png');
         game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+        game.load.spritesheet('enemy1', 'assets/enemy1.png', 48, 64);
+        game.load.spritesheet('enemy2', 'assets/enemy2.png', 48, 64);
+        game.load.spritesheet('enemy3', 'assets/enemy3.png', 48, 64);
     }
 
     // TODO: class for global game with one instance named 'world', which holds all data
@@ -22,6 +23,7 @@
     var cursors;
     var player;
     var player_graphics;
+    var enemies;
 
     // important value in [0, 1]
     // 0 is right, 0.25 is bottom, 0.5 is left, 0.75 is top
@@ -41,6 +43,12 @@
         player_graphics =  game.add.graphics(0, 0);
 
         // TODO: generate enemies (not directly here, write and call a function for that) so that they reside in an inner circular shape
+        // The enemies group contains all enemies in the middle
+        // enemies = game.add.group();
+        // for (e=0; e<20; e++) {
+        //     var enemy = enemies.create(midX, midY, 'enemy1');
+        //     enemies.push()
+        // }
 
         graphics.lineStyle(3, 0xc0c0c0, 1);
 
