@@ -3,22 +3,7 @@ var pauseKey;
 var fireKey;
 
 
-var world = {
-    cursors: null,
-    background_rendering: null,
-    foreground_rendering: null,
-
-    player: null,
-    level: 1,
-    score: 0,
-    life: MAXLIFE,
-    gun: null,
-    enemies: null,
-    ufo: null,
-    explosions: null,
-
-    pos: 0.25
-};
+var world
 
 var playState = {
     // var finish = new Phaser.Game(X, Y, Phaser.AUTO, 'container', {preload: {}, create: {}, update: {}});
@@ -36,6 +21,23 @@ var playState = {
         game.load.image('ufo', 'image/ufo.png');
 
         game.paused = false
+
+        world = {
+            cursors: null,
+            background_rendering: null,
+            foreground_rendering: null,
+
+            player: null,
+            level: 1,
+            score: 0,
+            life: MAXLIFE,
+            gun: null,
+            enemies: null,
+            ufo: null,
+            explosions: null,
+
+            pos: 0.25
+        };
     },
 
     // TODO: introduce bombs as super attack
