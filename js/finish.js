@@ -25,7 +25,7 @@ var finishState = {
 
 
 
-        var strings = ["Noob down"]
+        var strings = ["Level: " + world.level, "Total score: " + world.score, "Press Enter to play again."]
         strings.forEach((s, i) => {
             var help = game.add.text(game.world.centerX, 350 + i * 80, s)
             help.anchor.set(0.5, 0);
