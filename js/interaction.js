@@ -32,7 +32,7 @@ function ufoHit(game, world, bullet, ufo) {
     explosion.reset(ufo.body.x + ufo.width / 2, ufo.body.y + ufo.height / 2);
     explosion.play('kaboom', 30, false, true);
 
-    world.ufo = null; // you will be reborn soon
+    world.ufo.alive = false; // you will be reborn soon
 }
 
 function playerHit(game, world, bullet, player) {

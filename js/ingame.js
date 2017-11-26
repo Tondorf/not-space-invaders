@@ -30,7 +30,7 @@ var playState = {
             player: null,
             level: 1,
             score: 0,
-            life: MAXLIFE,
+            life: STARTLIFE,
             gun: null,
             enemies: null,
             ufo: null,
@@ -62,9 +62,9 @@ var playState = {
         }, this);
 
         spawnEnemies(game, world);
+        createUfo(game, world);
 
         createHUD(game, world);
-
 
         // overlays
         var pauseOverlay = game.add.graphics()
@@ -100,8 +100,8 @@ var playState = {
             spawnEnemies(game, world);
         }
 
-        if (world.ufo === null && Math.random() > 1-UFO_SPAWN_CHANCE) {
-            world.ufo = spawnUfo(game, world);
+        if (world.ufo.alive === false && Math.random() > 1 - UFO_SPAWN_CHANCE) {
+            resetUfo(game, world);
         }
 
         updateHUD(game, world);
