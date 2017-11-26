@@ -23,9 +23,7 @@ var finishState = {
         //  And apply to the Text
         title.fill = grd;
 
-
-
-        var strings = ["Level: " + world.level, "Total score: " + world.score, "Press Enter to play again."]
+        var strings = ["gg, wp", "You made it up to Level "+world.level, "and scored "+world.score+" points.", "Press Enter to play again."];
         strings.forEach((s, i) => {
             var help = game.add.text(game.world.centerX, 350 + i * 80, s)
             help.anchor.set(0.5, 0);
@@ -34,14 +32,6 @@ var finishState = {
             help.fontSize = 36;
             help.fill = '#ffffff'
         })
-
-
-
-
-
-        // console.log("wtf")
-
-
 
         var startKey = this.input.keyboard.addKey(Phaser.KeyCode.ENTER);
         startKey.onDown.add(function () {
