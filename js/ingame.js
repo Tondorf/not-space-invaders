@@ -46,7 +46,7 @@ var playState = {
     create: function () {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.time.desiredFps = 60;
-        game.stage.backgroundColor = "#101010";
+        game.stage.backgroundColor = BGCOLOR;
 
         world.background_rendering = game.add.graphics(0, 0);
         world.foreground_rendering = game.add.graphics(0, 0);

@@ -1,6 +1,7 @@
 
 var finishState = {
     create: function () {
+        game.stage.backgroundColor = BGCOLOR;
         var title = game.add.text(game.world.centerX, 150, "- game over -");
 
         //  Centers the text

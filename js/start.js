@@ -1,6 +1,7 @@
 
 var startState = {
     create: function () {
+        game.stage.backgroundColor = BGCOLOR;
         var title = game.add.text(game.world.centerX, 150, "- not space invaders -");
 
         //  Centers the text
