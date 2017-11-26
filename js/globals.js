@@ -8,7 +8,7 @@ const BGCOLOR = "#101010";
 const STARTLIFE = 3;
 const MAXLIFE = 5;
 const ENEMY_FIRE_CHANCE = 0.005; // [0..1]
-const UFO_SPAWN_CHANCE = 0.005; // [0..1]
+const UFO_SPAWN_CHANCE = 0.001; // [0..1]
 const SCALE = 1;
 
 function posToX(pos, rad=RADIUS) {
