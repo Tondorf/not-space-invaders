@@ -13,6 +13,7 @@ var playState = {
     preload: function () {
         game.load.image('player', 'image/player.png');
         game.load.image('heart', 'image/heart.png');
+        game.load.image('brokenheart', 'image/heart-broken-grey.png');
         game.load.image('bullet', 'image/bullet.png');
         game.load.image('enemyshot', 'image/enemyshot.png');
         game.load.spritesheet('kaboom', 'image/kaboom.png', 128, 128, 16);
