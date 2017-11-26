@@ -1,0 +1,1 @@
+py2 ../git-punchcard-plot/git-punchcard.py path=. file=punchcard.png
