@@ -10,8 +10,9 @@ var score
 
 function createHUD(game, world) {
 // draw player movement circle once
-    world.background_rendering.lineStyle(10, 0xc0c0c0, 0.15);
-    world.background_rendering.drawCircle(game.width / 2, game.height / 2, 2 * RADIUS);
+    var orbit = 3;
+    world.background_rendering.lineStyle(orbit, 0xc0c0c0, 0.15);
+    world.background_rendering.drawCircle(game.width / 2, game.height / 2, 2 * RADIUS+10);
 
 
     world.background_rendering.lineStyle(0, 0, 0);
