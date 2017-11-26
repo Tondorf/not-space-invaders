@@ -4,6 +4,7 @@ function spawnUfo(game, world) {
     var y = -100;
     var ufo = game.add.sprite(x, y, 'ufo');
     ufo.anchor.setTo(0.5, 0.5);
+    ufo.scale.setTo(SCALE);
     game.physics.arcade.enable(ufo);
 
     ufo.approaching = true;

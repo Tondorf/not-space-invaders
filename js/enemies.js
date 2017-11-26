@@ -1,7 +1,10 @@
 function preloadEnemySprites(game) {
-    game.load.spritesheet('enemy1', 'image/enemy1.png', 32, 32);
-    game.load.spritesheet('enemy2', 'image/enemy2.png', 44, 32, 2);
-    game.load.spritesheet('enemy3', 'image/enemy3.png', 48, 32, 2);
+    // game.load.spritesheet('enemy1', 'image/enemy1.png', 32, 32);
+    // game.load.spritesheet('enemy2', 'image/enemy2.png', 44, 32);
+    // game.load.spritesheet('enemy3', 'image/enemy3.png', 48, 32);
+    game.load.spritesheet('enemy1', 'image/enemy1small.png', 24, 24);
+    game.load.spritesheet('enemy2', 'image/enemy2small.png', 32, 24, 2);
+    game.load.spritesheet('enemy3', 'image/enemy3small.png', 36, 24, 2);
 }
 
 var enemyBoundaryRadius;
@@ -18,6 +21,7 @@ function spawnEnemies(game, world) {
 
         var enemy = world.enemies.create(x, y, 'enemy'+rnd_int(1,3), 0);
         enemy.anchor.setTo(0.5, 0.5);
+        enemy.scale.setTo(SCALE);
         game.physics.arcade.enable(enemy);
         // [enemy.body.bounce.x, enemy.body.bounce.y] = [Math.random()*0.5, Math.random()*0.5];
 

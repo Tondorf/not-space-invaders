@@ -1,9 +1,10 @@
+
+// Control globals
 var cursors;
 var pauseKey;
 var fireKey;
 
-
-var world
+var world;
 
 var playState = {
     // var finish = new Phaser.Game(X, Y, Phaser.AUTO, 'container', {preload: {}, create: {}, update: {}});
@@ -23,7 +24,6 @@ var playState = {
         game.paused = false
 
         world = {
-            cursors: null,
             background_rendering: null,
             foreground_rendering: null,
 
@@ -100,7 +100,7 @@ var playState = {
             spawnEnemies(game, world);
         }
 
-        if (world.ufo === null && Math.random() > 0.99) {
+        if (world.ufo === null && Math.random() > 1-UFO_SPAWN_CHANCE) {
             world.ufo = spawnUfo(game, world);
         }
 
