@@ -6,7 +6,7 @@ function createPlayerAndGun(game, world) {
     game.physics.arcade.enable(player);
 
     //  Creates 30 bullets, using the 'bullet' graphic
-    var gun = game.add.weapon(1, 'bullet');
+    var gun = game.add.weapon(2, 'bullet');
     gun.bulletAngleOffset = 90;
 
     //  The bullet will be automatically killed when it leaves the world bounds
