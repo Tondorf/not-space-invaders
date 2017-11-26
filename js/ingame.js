@@ -85,6 +85,9 @@ var playState = {
             game.paused = !game.paused
             pauseOverlay.visible = game.paused
             pauseLabel.visible = game.paused
+            
+            game.world.bringToTop(pauseOverlay)
+            game.world.bringToTop(pauseLabel)
         }, this)
 
 
